@@ -1,4 +1,14 @@
 /*
+ * stm32f429i_gpio_driver.h
+ *
+ *  Created on: Apr 6, 2025
+ *      Author: peng
+ */
+
+#ifndef STM32F429I_GPIO_DRIVER_H_
+#define STM32F429I_GPIO_DRIVER_H_
+
+/*
  * gpio_driver.h
  *
  *  Created on: Apr 4, 2025
@@ -78,10 +88,15 @@ typedef struct {
 #define GPIO_PUPD_UP        (0x01)
 #define GPIO_PUPD_DOWN      (0x02)
 
-#endif /* GPIO_DRIVER_H_ */
-
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
 void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi);
+void GPIO_IRQHandling(uint8_t PinNumber);
+
+#endif /* GPIO_DRIVER_H_ */
+
+#endif /* STM32F429I_GPIO_DRIVER_H_ */

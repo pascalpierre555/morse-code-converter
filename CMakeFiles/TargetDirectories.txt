@@ -1,0 +1,3 @@
+/mnt/D/morse-code-converter/CMakeFiles/morse-code-converter.dir
+/mnt/D/morse-code-converter/CMakeFiles/edit_cache.dir
+/mnt/D/morse-code-converter/CMakeFiles/rebuild_cache.dir

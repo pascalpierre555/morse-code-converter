@@ -1,7 +1,7 @@
 /*
  * stm32f429i.h
  *
- *  Created on: Apr 4, 2025
+ *  Created on: Apr 6, 2025
  *      Author: peng
  */
 
@@ -14,21 +14,11 @@
 #define NVIC_ISER0		((volatile uint32_t*)0xE000E100)
 #define NVIC_ISER1		((volatile uint32_t*)0xE000E104)
 #define NVIC_ISER2		((volatile uint32_t*)0xE000E108)
-#define NVIC_ISER3		((volatile uint32_t*)0xE000E10C)
-#define NVIC_ISER4		((volatile uint32_t*)0xE000E110)
-#define NVIC_ISER5		((volatile uint32_t*)0xE000E114)
-#define NVIC_ISER6		((volatile uint32_t*)0xE000E118)
-#define NVIC_ISER7		((volatile uint32_t*)0xE000E11C)
 
 // ARM Cortex-M4 core NVIC ICERx register addresses
 #define NVIC_ICER0		((volatile uint32_t*)0xE000E180)
 #define NVIC_ICER1		((volatile uint32_t*)0xE000E184)
 #define NVIC_ICER2		((volatile uint32_t*)0xE000E188)
-#define NVIC_ICER3		((volatile uint32_t*)0xE000E18C)
-#define NVIC_ICER4		((volatile uint32_t*)0xE000E190)
-#define NVIC_ICER5		((volatile uint32_t*)0xE000E194)
-#define NVIC_ICER6		((volatile uint32_t*)0xE000E198)
-#define NVIC_ICER7		((volatile uint32_t*)0xE000E19C)
 
 // ARM Cortex-M4 core priority register addresses
 #define NVIC_PR_BASE_ADDR	((volatile uint32_t*)0xE000E400)
@@ -72,7 +62,7 @@
 #define RCC_BASE	(AHB1BASEADDR + 0x3800)
 
 //SYSCFG base address
-#define SYSCFG_BASE	(APB2BASEADDR + 0x0000)
+#define SYSCFG_BASE	(APB2BASEADDR + 0x3800)
 
 #define GPIOA	((GPIO_RegDef_t*)GPIOA_BASE)
 #define GPIOB	((GPIO_RegDef_t*)GPIOB_BASE)
@@ -153,20 +143,27 @@ typedef struct {
 	volatile uint32_t AHB1RSTR;
 	volatile uint32_t AHB2RSTR;
 	volatile uint32_t AHB3RSTR;
+	uint32_t RESERVED1;
 	volatile uint32_t APB1RSTR;
 	volatile uint32_t APB2RSTR;
+	uint32_t RESERVED2[2];
 	volatile uint32_t AHB1ENR;
 	volatile uint32_t AHB2ENR;
 	volatile uint32_t AHB3ENR;
+	uint32_t RESERVED3;
 	volatile uint32_t APB1ENR;
 	volatile uint32_t APB2ENR;
+	uint32_t RESERVED4[2];
 	volatile uint32_t AHB1LPENR;
 	volatile uint32_t AHB2LPENR;
 	volatile uint32_t AHB3LPENR;
+	uint32_t RESERVED5;
 	volatile uint32_t APB1LPENR;
 	volatile uint32_t APB2LPENR;
+	uint32_t RESERVED6[2];
 	volatile uint32_t BDCR;
 	volatile uint32_t CSR;
+	uint32_t RESERVED7[2];
 	volatile uint32_t SSCGR;
 	volatile uint32_t PLLI2SCFGR;
 	volatile uint32_t PLLSAICFGR;
@@ -198,6 +195,24 @@ typedef struct {
 #define IRQ_NO_EXTI9_5	23
 #define IRQ_NO_EXTI10_15	40
 
+//IRQ priority macros
+#define NVIC_IRQ_PRI0	0
+#define NVIC_IRQ_PRI1	1
+#define NVIC_IRQ_PRI2	2
+#define NVIC_IRQ_PRI3	3
+#define NVIC_IRQ_PRI4	4
+#define NVIC_IRQ_PRI5	5
+#define NVIC_IRQ_PRI6	6
+#define NVIC_IRQ_PRI7	7
+#define NVIC_IRQ_PRI8	8
+#define NVIC_IRQ_PRI9	9
+#define NVIC_IRQ_PRI10	10
+#define NVIC_IRQ_PRI11	11
+#define NVIC_IRQ_PRI12	12
+#define NVIC_IRQ_PRI13	13
+#define NVIC_IRQ_PRI14	14
+#define NVIC_IRQ_PRI15	15
+
 //SYSCFG
 typedef struct {
 	volatile uint32_t MEMRMP;
@@ -213,5 +228,7 @@ typedef struct {
 
 #define ENABLE 1
 #define DISABLE 0
+#define GPIO_PIN_SET 1
+#define GPIO_PIN_RESET 0
 
 #endif /* STM32F429I_H_ */

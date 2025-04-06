@@ -1,9 +1,10 @@
 /*
- * stm32f429i_gpio_driver.c
+ * stm32F429i_gpio_driver.c
  *
- *  Created on: Apr 4, 2025
+ *  Created on: Apr 6, 2025
  *      Author: peng
  */
+
 #include "stm32f429i.h"
 #include "stm32f429i_gpio_driver.h"
 
@@ -94,7 +95,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
     if (pGPIOHandle->config.mode <= GPIO_MODE_ANALOG) {
         temp = (pGPIOHandle->config.mode << (2 * pGPIOHandle->config.pin));
         pGPIOHandle->port->MODER &= ~(0x03 << (2 * pGPIOHandle->config.pin)); // Clear the bits
-        pGPIOHandle->port->MODER |= temp; 
+        pGPIOHandle->port->MODER |= temp;
     }
     else {
         if (pGPIOHandle->config.mode == GPIO_MODE_IT_FT) {
@@ -119,7 +120,10 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
         uint8_t portcode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->port);
         SYSCFG_PCLK_EN(); // Enable SYSCFG clock
         SYSCFG->EXTICR[temp1] &= ~(0x0F << (temp2 * 4)); // Clear the bits
-        SYSCFG->EXTICR[temp1] |= (portcode << (temp2 * 4)); // Set the bits
+        SYSCFG->EXTICR[temp1] = portcode << (temp2 * 4); // Set the bits
+
+        // Enable the interrupt
+        EXTI->IMR |= (1 << pGPIOHandle->config.pin); // Unmask the interrupt
     }
     temp = 0;
 
@@ -199,7 +203,20 @@ void GPIO_DeInit(GPIO_RegDef_t *pGPIOx) {
     }
 }
 
-void IRQ_Config (uint8_t IRQNumber, uint8_t EnorDi) {
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value) {
+    if (Value == GPIO_PIN_SET) {
+        pGPIOx->ODR |= (1 << PinNumber);
+    }
+    else {
+        pGPIOx->ODR &= ~(1 << PinNumber);
+    }
+}
+
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber) {
+    pGPIOx->ODR ^= (1 << PinNumber);
+}
+
+void GPIO_IRQConfig (uint8_t IRQNumber, uint8_t EnorDi) {
     if (EnorDi == ENABLE) {
         if (IRQNumber <= 31) {
             // Program ISER0 register
@@ -236,4 +253,11 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority) {
     uint8_t iprx_section = IRQNumber % 4;
     uint8_t shift_amount = (8 * iprx_section) + (8 - NO_PR_BITS_IMPLEMENTED);
     *(NVIC_PR_BASE_ADDR + iprx) |= (IRQPriority << shift_amount);
+}
+
+void GPIO_IRQHandling(uint8_t PinNumber) {
+    // Clear the EXTI line pending register
+    if (EXTI->PR & (1 << PinNumber)) {
+        EXTI->PR |= (1 << PinNumber);
+    }
 }
