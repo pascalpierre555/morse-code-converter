@@ -1,3 +1,2 @@
-"./Src/syscalls.o"
-"./Src/sysmem.o"
+"./Src/main.o"
 "./Startup/startup_stm32f429zitx.o"
