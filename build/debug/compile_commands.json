@@ -1,0 +1,26 @@
+[
+{
+  "directory": "/mnt/D/morse-code-converter/build/debug",
+  "command": "/home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc -DDEBUG -I/mnt/D/morse-code-converter/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -g -std=gnu11 -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -Wextra -Wpedantic -Wno-unused-parameter -Og -g3 -ggdb -o CMakeFiles/morse-code-converter.dir/Src/main.c.obj -c /mnt/D/morse-code-converter/Src/main.c",
+  "file": "/mnt/D/morse-code-converter/Src/main.c",
+  "output": "CMakeFiles/morse-code-converter.dir/Src/main.c.obj"
+},
+{
+  "directory": "/mnt/D/morse-code-converter/build/debug",
+  "command": "/home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc -DDEBUG -I/mnt/D/morse-code-converter/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -g -std=gnu11 -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -Wextra -Wpedantic -Wno-unused-parameter -Og -g3 -ggdb -o CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj -c /mnt/D/morse-code-converter/Src/syscall.c",
+  "file": "/mnt/D/morse-code-converter/Src/syscall.c",
+  "output": "CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj"
+},
+{
+  "directory": "/mnt/D/morse-code-converter/build/debug",
+  "command": "/home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc -DDEBUG -I/mnt/D/morse-code-converter/Inc -fdata-sections -ffunction-sections -Wl,--gc-sections -g -std=gnu11 -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -Wextra -Wpedantic -Wno-unused-parameter -Og -g3 -ggdb -o CMakeFiles/morse-code-converter.dir/Src/sysmem.c.obj -c /mnt/D/morse-code-converter/Src/sysmem.c",
+  "file": "/mnt/D/morse-code-converter/Src/sysmem.c",
+  "output": "CMakeFiles/morse-code-converter.dir/Src/sysmem.c.obj"
+},
+{
+  "directory": "/mnt/D/morse-code-converter/build/debug",
+  "command": "/home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/arm-none-eabi-gcc -DDEBUG -I/mnt/D/morse-code-converter -g -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -Wall -Wextra -Wpedantic -Wno-unused-parameter -x assembler-with-cpp -MMD -MP -Og -g3 -ggdb -o CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj -c /mnt/D/morse-code-converter/Startup/startup_stm32f429zitx.s",
+  "file": "/mnt/D/morse-code-converter/Startup/startup_stm32f429zitx.s",
+  "output": "CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj"
+}
+]

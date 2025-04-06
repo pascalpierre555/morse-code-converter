@@ -9,7 +9,7 @@
 #define GPIO_DRIVER_H_
 
 #include <stm32f429i.h>
-#include <cstdint>
+#include <stdint.h>
 
 // GPIO 暫存器位址偏移量
 #define GPIO_MODER_OFFSET	(0x00)
@@ -59,6 +59,9 @@ typedef struct {
 #define GPIO_MODE_OUTPUT    (0x01)
 #define GPIO_MODE_AF        (0x02)
 #define GPIO_MODE_ANALOG    (0x03)
+#define GPIO_MODE_IT_FT     (0x04) // Interrupt on falling edge
+#define GPIO_MODE_IT_RT     (0x05) // Interrupt on rising edge
+#define GPIO_MODE_IT_RFT    (0x06) // Interrupt on rising and falling edge
 
 // GPIO 輸出類型定義
 #define GPIO_OTYPE_PP       (0x00) // Push-pull
@@ -80,3 +83,5 @@ typedef struct {
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_IRQPriorityConfig(uint8_t IRQNumber, uint32_t IRQPriority);
+void GPIO_IRQConfig(uint8_t IRQNumber, uint8_t EnorDi);

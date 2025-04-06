@@ -8,6 +8,33 @@
 #ifndef STM32F429I_H_
 #define STM32F429I_H_
 
+#include <stdint.h>
+
+// ARM Cortex-M4 core NVIC ISERx register addresses
+#define NVIC_ISER0		((volatile uint32_t*)0xE000E100)
+#define NVIC_ISER1		((volatile uint32_t*)0xE000E104)
+#define NVIC_ISER2		((volatile uint32_t*)0xE000E108)
+#define NVIC_ISER3		((volatile uint32_t*)0xE000E10C)
+#define NVIC_ISER4		((volatile uint32_t*)0xE000E110)
+#define NVIC_ISER5		((volatile uint32_t*)0xE000E114)
+#define NVIC_ISER6		((volatile uint32_t*)0xE000E118)
+#define NVIC_ISER7		((volatile uint32_t*)0xE000E11C)
+
+// ARM Cortex-M4 core NVIC ICERx register addresses
+#define NVIC_ICER0		((volatile uint32_t*)0xE000E180)
+#define NVIC_ICER1		((volatile uint32_t*)0xE000E184)
+#define NVIC_ICER2		((volatile uint32_t*)0xE000E188)
+#define NVIC_ICER3		((volatile uint32_t*)0xE000E18C)
+#define NVIC_ICER4		((volatile uint32_t*)0xE000E190)
+#define NVIC_ICER5		((volatile uint32_t*)0xE000E194)
+#define NVIC_ICER6		((volatile uint32_t*)0xE000E198)
+#define NVIC_ICER7		((volatile uint32_t*)0xE000E19C)
+
+// ARM Cortex-M4 core priority register addresses
+#define NVIC_PR_BASE_ADDR	((volatile uint32_t*)0xE000E400)
+
+#define NO_PR_BITS_IMPLEMENTED	4
+
 //Bus base addresses
 #define APB1BASEADDR	0x40000000U
 #define APB2BASEADDR	0x40010000U
@@ -33,6 +60,8 @@
 #define I2C2_BASE	(APB1BASEADDR + 0x5800)
 #define I2C3_BASE	(APB1BASEADDR + 0x5C00)
 
+#define EXTI_BASE	(APB2BASEADDR + 0x3C00)
+
 //I2C clock enable macros
 #define I2C1_PCLK_EN()	(RCC->APB1ENR |= (1<<21))
 
@@ -41,6 +70,9 @@
 
 //RCC base address
 #define RCC_BASE	(AHB1BASEADDR + 0x3800)
+
+//SYSCFG base address
+#define SYSCFG_BASE	(APB2BASEADDR + 0x0000)
 
 #define GPIOA	((GPIO_RegDef_t*)GPIOA_BASE)
 #define GPIOB	((GPIO_RegDef_t*)GPIOB_BASE)
@@ -67,6 +99,9 @@
 #define GPIOJ_PCLK_EN()		(RCC->AHB1ENR |= (1<<9))
 #define GPIOK_PCLK_EN()		(RCC->AHB1ENR |= (1<<10))
 
+//SYSCFG Clock Enable Macros
+#define SYSCFG_PCLK_EN()	(RCC->APB2ENR |= (1<<14))
+
 // GPIO Clock Disable Macros
 #define GPIOA_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<0))
 #define GPIOB_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<1))
@@ -80,6 +115,9 @@
 #define GPIOJ_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<9))
 #define GPIOK_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<10))
 
+//STSCFG CLock Disable Macros
+#define SYSCFG_PCLK_DI()	(RCC->APB2ENR &= ~(1<<14))
+
 //GPIO register reset macros
 #define GPIOA_REG_RESET()	do{(RCC->AHB1RSTR |= (1<<0)); (RCC->AHB1RSTR &= ~(1<<0))}while (0)
 #define GPIOB_REG_RESET()	do{(RCC->AHB1RSTR |= (1<<1)); (RCC->AHB1RSTR &= ~(1<<1))}while (0)
@@ -92,6 +130,19 @@
 #define GPIOI_REG_RESET()	do{(RCC->AHB1RSTR |= (1<<8)); (RCC->AHB1RSTR &= ~(1<<8))}while (0)
 #define GPIOJ_REG_RESET()	do{(RCC->AHB1RSTR |= (1<<9)); (RCC->AHB1RSTR &= ~(1<<9))}while (0)
 #define GPIOK_REG_RESET()	do{(RCC->AHB1RSTR |= (1<<10)); (RCC->AHB1RSTR &= ~(1<<10))}while (0)
+
+//GPIO base address to port code conversion macros
+#define GPIO_BASEADDR_TO_CODE(x)	((x == GPIOA) ? 0 : \
+									(x == GPIOB) ? 1 : \
+									(x == GPIOC) ? 2 : \
+									(x == GPIOD) ? 3 : \
+									(x == GPIOE) ? 4 : \
+									(x == GPIOF) ? 5 : \
+									(x == GPIOG) ? 6 : \
+									(x == GPIOH) ? 7 : \
+									(x == GPIOI) ? 8 : \
+									(x == GPIOJ) ? 9 : \
+									10)
 
 //RCC
 typedef struct {
@@ -124,7 +175,41 @@ typedef struct {
 	volatile uint32_t DCKCFGR2;
 } RCC_RegDef_t;
 
+//EXTI
+typedef struct {
+	volatile uint32_t IMR;
+	volatile uint32_t EMR;
+	volatile uint32_t RTSR;
+	volatile uint32_t FTSR;
+	volatile uint32_t SWIER;
+	volatile uint32_t PR;
+} EXTI_RegDef_t;
+
+//IRQ number macros
+#define IRQ_NO_EXTI0	6
+#define IRQ_NO_EXTI1	7
+#define IRQ_NO_EXTI2	8
+#define IRQ_NO_EXTI3	9
+#define IRQ_NO_EXTI4	10
+#define IRQ_NO_EXTI5	23
+#define IRQ_NO_EXTI6	23
+#define IRQ_NO_EXTI7	23
+#define IRQ_NO_EXTI8	23
+#define IRQ_NO_EXTI9_5	23
+#define IRQ_NO_EXTI10_15	40
+
+//SYSCFG
+typedef struct {
+	volatile uint32_t MEMRMP;
+	volatile uint32_t PMC;
+	volatile uint32_t EXTICR[4];
+	uint32_t RESERVED1[2];
+	volatile uint32_t CMPCR;
+} SYSCFG_RegDef_t;
+
 #define RCC	((RCC_RegDef_t*)RCC_BASE)
+#define EXTI	((EXTI_RegDef_t*)EXTI_BASE)
+#define SYSCFG	((SYSCFG_RegDef_t*)(SYSCFG_BASE))
 
 #define ENABLE 1
 #define DISABLE 0
