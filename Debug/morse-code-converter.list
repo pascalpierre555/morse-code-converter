@@ -98,8 +98,8 @@ int main(void) {
 	GpioBtn.config.pin = 4;
  80001f6:	2304      	movs	r3, #4
  80001f8:	60bb      	str	r3, [r7, #8]
-	GpioBtn.config.mode = GPIO_MODE_IT_RFT; // Falling edge trigger
- 80001fa:	2306      	movs	r3, #6
+	GpioBtn.config.mode = GPIO_MODE_IT_RT; // Falling edge trigger
+ 80001fa:	2305      	movs	r3, #5
  80001fc:	60fb      	str	r3, [r7, #12]
 	GpioBtn.config.otype = GPIO_OTYPE_PP; // Push-pull
  80001fe:	2300      	movs	r3, #0

@@ -27,12 +27,13 @@
 int main(void) {
 	GPIO_Handle_t GpioBtn;
 
-	GpioBtn.port = GPIOF;
-	GpioBtn.config.pin = 4;
-	GpioBtn.config.mode = GPIO_MODE_IT_RFT; // Falling edge trigger
+	GpioBtn.port = GPIOA;
+	GpioBtn.config.pin = 0;
+	GpioBtn.config.mode = GPIO_MODE_AF; // Falling edge trigger
 	GpioBtn.config.otype = GPIO_OTYPE_PP; // Push-pull
-	GpioBtn.config.ospeed = GPIO_OSPEED_VERY_HIGH; // Fast speed
+	GpioBtn.config.ospeed = GPIO_OSPEED_LOW; // Fast speed
 	GpioBtn.config.pupd = GPIO_PUPD_UP; // Pull-up
+	GpioBtn.config.af = 1; // Alternate function 1 (AF1)
 	GPIO_Init(&GpioBtn);
 
 	GPIO_IRQPriorityConfig(IRQ_NO_EXTI4, 15); // Set priority to lowest
