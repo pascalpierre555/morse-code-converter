@@ -88,8 +88,6 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi) {
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
     uint32_t temp = 0;
 
-    // Enable the peripheral clock for the GPIO port
-    GPIO_PeriClockControl(pGPIOHandle->port, ENABLE);
 
     // Configure the mode
     if (pGPIOHandle->config.mode <= GPIO_MODE_ANALOG) {

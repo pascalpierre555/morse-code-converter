@@ -55,6 +55,8 @@
 
 //TIMER base addresses
 #define TIM2_BASE	(APB1BASEADDR + 0x0000)
+#define TIM3_BASE	(APB1BASEADDR + 0x0400)
+#define TIM4_BASE	(APB1BASEADDR + 0x0800)
 
 //I2C clock enable macros
 #define I2C1_PCLK_EN()	(RCC->APB1ENR |= (1<<21))
@@ -98,6 +100,8 @@
 
 //TIM Clock Enable Macros
 #define TIM2_PCLK_EN()		(RCC->APB1ENR |= (1<<0))
+#define TIM3_PCLK_EN()		(RCC->APB1ENR |= (1<<1))
+#define TIM4_PCLK_EN()		(RCC->APB1ENR |= (1<<2))
 
 // GPIO Clock Disable Macros
 #define GPIOA_PCLK_DI()		(RCC->AHB1ENR &= ~(1<<0))
@@ -198,6 +202,8 @@ typedef struct {
 #define IRQ_NO_EXTI9_5	23
 #define IRQ_NO_EXTI10_15	40
 #define IRQ_NO_TIM2		28
+#define IRQ_NO_TIM3		29
+#define IRQ_NO_TIM4		30
 
 //IRQ priority macros
 #define NVIC_IRQ_PRI0	0
@@ -230,6 +236,8 @@ typedef struct {
 #define EXTI	((EXTI_RegDef_t*)EXTI_BASE)
 #define SYSCFG	((SYSCFG_RegDef_t*)(SYSCFG_BASE))
 #define TIM2	((TIM_RegDef_t*)TIM2_BASE)
+#define TIM3	((TIM_RegDef_t*)TIM3_BASE)
+#define TIM4	((TIM_RegDef_t*)TIM4_BASE)
 
 #define ENABLE 1
 #define DISABLE 0

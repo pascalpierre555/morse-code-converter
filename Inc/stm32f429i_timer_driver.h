@@ -10,6 +10,10 @@
 
 #include <stm32f429i.h>
 
+//timer modes
+#define TIM_MODE_UP          0
+#define TIM_MODE_DOWN        1
+
 //capture/comapre channels
 #define TIM_CC1    0
 #define TIM_CC2    1

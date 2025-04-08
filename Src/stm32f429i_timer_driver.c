@@ -10,11 +10,11 @@
 
 void TIM_Init(TIM_Handle_t *pTIMHandle) {
     // Enable the peripheral clock for the timer
-    TIM2_PCLK_EN(); // Enable TIM2 clock
 
     // Configure the timer
     pTIMHandle->pTIMx->PSC = pTIMHandle->config.prescaler - 1; // Set prescaler
     pTIMHandle->pTIMx->ARR = pTIMHandle->config.period - 1;    // Set auto-reload value
+    pTIMHandle->pTIMx->CR[0] = (pTIMHandle->config.mode << 4); // Set mode
 }
 
 void TIM_DeInit(TIM_Handle_t *pTIMHandle) {
