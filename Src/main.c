@@ -19,13 +19,73 @@
 #include <stdint.h>
 #include "stm32f429i.h"
 #include "stm32f429i_gpio_driver.h"
+#include "stm32f429i_timer_driver.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-int main(void) {
+void GPIO_InitConfig(void) {
+    // Initialize GPIOA as alternate function mode for TIM2_CH1
 	GPIO_Handle_t GpioBtn;
+	GpioBtn.port = GPIOA;
+	GpioBtn.config.pin = 0;
+	GpioBtn.config.mode = GPIO_MODE_AF; // Falling edge trigger
+	GpioBtn.config.otype = GPIO_OTYPE_PP; // Push-pull
+	GpioBtn.config.ospeed = GPIO_OSPEED_LOW; // Fast speed
+	GpioBtn.config.pupd = GPIO_PUPD_UP; // Pull-up
+	GpioBtn.config.af = 1; // Alternate function 1 (AF1)
+	GPIO_Init(&GpioBtn);
+
+    // 初始化 GPIO2 和 GPIO3 為輸出模式
+    GPIO_Handle_t gpio2, gpio3;
+    gpio2.port = GPIOA;
+    gpio2.config.pin = 2; // GPIO2
+    gpio2.config.mode = GPIO_MODE_OUTPUT;
+    gpio2.config.otype = GPIO_OTYPE_PP;
+    gpio2.config.ospeed = GPIO_OSPEED_LOW;
+    gpio2.config.pupd = GPIO_PUPD_NONE;
+    GPIO_Init(&gpio2);
+
+    gpio3.port = GPIOA;
+    gpio3.config.pin = 3; // GPIO3
+    gpio3.config.mode = GPIO_MODE_OUTPUT;
+    gpio3.config.otype = GPIO_OTYPE_PP;
+    gpio3.config.ospeed = GPIO_OSPEED_LOW;
+    gpio3.config.pupd = GPIO_PUPD_NONE;
+    GPIO_Init(&gpio3);
+
+    // 配置 EXTI 中斷
+    GPIO_IRQPriorityConfig(IRQ_NO_EXTI1, 15); // 設置優先級
+    GPIO_IRQConfig(IRQ_NO_EXTI1, ENABLE);    // 啟用中斷
+}
+
+// TIM2 configuration
+void TIM2_Config(void) {
+	TIM_Handle_t timerHandle;
+	timerHandle.pTIMx = TIM2;
+	timerHandle.config.prescaler = 16000 - 1; // Prescaler value
+	timerHandle.config.period = 0xFFFF; // Auto-reload value
+	timerHandle.config.mode = 0; // Timer mode (up)
+	timerHandle.config.channelConfig[0].ccm = TIM_CC_SELECTION_INPUT_DEFAULT; // 默認輸入捕捉
+	timerHandle.config.channelConfig[0].ic_mode = TIM_IC_MODE_RISING_EDGE; // 捕捉上升沿
+}
+
+void TIM2_IRQHandler(void) {
+    if (TIM_GetFlagStatus(TIM2, TIM_FLAG_CC1)) {
+        TIM_ClearFlag(TIM2, TIM_FLAG_CC1); // 清除捕捉標誌
+
+        uint32_t capturedValue = TIM2->CCR[0]; // 獲取捕捉值
+        // 在這裡處理捕捉到的值，例如計算信號持續時間
+    }
+}
+
+int main(void) {
+	// TIMER and GPIO handle;
+	TIM_Handle_t TimHandle;
+	GPIO_Handle_t GpioBtn;
+
+	volatile uint32_t press_time; 
 
 	GpioBtn.port = GPIOA;
 	GpioBtn.config.pin = 0;
@@ -43,7 +103,3 @@ int main(void) {
 	return 0;
 }
 
-void EXTI4_IRQHandler(void) {
-	GPIO_IRQHandling(4); // Handle the interrupt for EXTI line 4
-	return;
-}

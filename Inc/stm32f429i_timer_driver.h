@@ -27,13 +27,11 @@
 #define TIM_IC_MODE_FALLING_EDGE  1
 #define TIM_IC_MODE_RF            3
 
-typedef struct {
-    uint32_t prescaler; // Prescaler value
-    uint32_t period;    // Auto-reload value
-    uint32_t mode;      // Timer mode (e.g., up, down, etc.)
-    uint32_t ccm;       // Capture/Compare mode
-    TIM_ChannelConfig_t channelConfig[4]; // Channel configurations
-} TIM_Config_t;
+//timer status register flags
+#define TIM_FLAG_CC1IF   (1 << 1) // Capture/Compare 1 interrupt flag
+#define TIM_FLAG_CC2IF   (1 << 2) // Capture/Compare 2 interrupt flag
+#define TIM_FLAG_CC3IF   (1 << 3) // Capture/Compare 3 interrupt flag
+#define TIM_FLAG_CC4IF   (1 << 4) // Capture/Compare 4 interrupt flag
 
 typedef struct {
 	volatile uint32_t CR[2];
@@ -60,6 +58,14 @@ typedef struct {
     uint32_t ic_mode;    // Input capture mode
 } TIM_ChannelConfig_t;
 
+
+typedef struct {
+    uint32_t prescaler; // Prescaler value
+    uint32_t period;    // Auto-reload value
+    uint32_t mode;      // Timer mode (e.g., up, down, etc.)
+    TIM_ChannelConfig_t channelConfig[4]; // Channel configurations
+} TIM_Config_t;
+
 typedef struct {
     TIM_RegDef_t *pTIMx; // Pointer to the timer peripheral
     TIM_Config_t config; // Timer configuration
@@ -69,5 +75,7 @@ void TIM_Init(TIM_Handle_t *pTIMHandle);
 void TIM_Start(TIM_Handle_t *pTIMHandle);
 void TIM_Stop(TIM_Handle_t *pTIMHandle);
 void TIM_SetPrescaler(TIM_Handle_t *pTIMHandle, uint32_t prescaler);
+void TIM_SetupChannel(TIM_Handle_t *pTIMHandle, uint32_t channel)
+void TIM_GetFlagStatus(TIM_RegDef_t *pTIMx, uint32_t flag)
 
 #endif /* STM32F429I_TIMER_DRIVER_H_ */

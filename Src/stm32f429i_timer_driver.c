@@ -33,11 +33,33 @@ void TIM_Start(TIM_Handle_t *pTIMHandle) {
 void TIM_Stop(TIM_Handle_t *pTIMHandle) {
     pTIMHandle->pTIMx->CR[0] &= ~(1 << 0); // Disable the timer
 }
+
 void TIM_SetupChannel(TIM_Handle_t *pTIMHandle, uint32_t channel) {
+    uint8_t temp1 = channel / 2;
+    uint8_t temp2 = channel % 2;
     // Configure the channel
-    pTIMHandle->pTIMx->CCMR[channel] &= ~(0x03 << (8 * channel)); // Clear the bits
-    pTIMHandle->pTIMx->CCMR[channel] |= (pTIMHandle->config.channelConfig[channel].ccm << (8 * channel)); // Set Capture/Compare mode
+    pTIMHandle->pTIMx->CCMR[temp1] &= ~(0x03 << (4 * temp2)); // Clear the bits
+    pTIMHandle->pTIMx->CCMR[temp1] |= (pTIMHandle->config.channelConfig[channel].ccm << temp2); // Set Capture/Compare mode
     pTIMHandle->pTIMx->CCER &= ~(0x03 << (4 * channel) + 1); // Clear the CCxP bits
     pTIMHandle->pTIMx->CCER |= (pTIMHandle->config.channelConfig[channel].ic_mode << (4 * channel) + 1); // Set Input Capture mode
     pTIMHandle->pTIMx->CCER |= (1 << (4 * channel)); // Enable the channel
+}
+
+void TIM_IRQHandler(TIM_Handle_t *pTIMHandle) {
+    // Check if the interrupt flag is set
+    if (pTIMHandle->pTIMx->SR & TIM_FLAG_CC1IF) {
+        // Clear the interrupt flag
+        pTIMHandle->pTIMx->SR &= ~TIM_FLAG_CC1IF;
+        // Handle the interrupt (e.g., read captured value)
+        uint32_t capturedValue = pTIMHandle->pTIMx->CCR[0]; // Read captured value
+        // Process the captured value as needed
+    }
+}
+
+void TIM_EnableInterrupt(TIM_Handle_t *pTIMHandle, uint32_t channel) {
+    pTIMHandle->pTIMx->DIER |= (1 << (channel + 1)); // Enable interrupt for the specified channel
+}
+
+void TIM_DisableInterrupt(TIM_Handle_t *pTIMHandle, uint32_t channel) {
+    pTIMHandle->pTIMx->DIER &= ~(1 << (channel + 1)); // Disable interrupt for the specified channel
 }

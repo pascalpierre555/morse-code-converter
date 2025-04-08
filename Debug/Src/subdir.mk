@@ -7,18 +7,21 @@
 C_SRCS += \
 ../Src/main.c \
 ../Src/stm32f429i_gpio_driver.c \
+../Src/stm32f429i_timer_driver.c \
 ../Src/syscall.c \
 ../Src/sysmem.c 
 
 OBJS += \
 ./Src/main.o \
 ./Src/stm32f429i_gpio_driver.o \
+./Src/stm32f429i_timer_driver.o \
 ./Src/syscall.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
 ./Src/main.d \
 ./Src/stm32f429i_gpio_driver.d \
+./Src/stm32f429i_timer_driver.d \
 ./Src/syscall.d \
 ./Src/sysmem.d 
 
@@ -30,7 +33,7 @@ Src/%.o Src/%.su Src/%.cyclo: ../Src/%.c Src/subdir.mk
 clean: clean-Src
 
 clean-Src:
-	-$(RM) ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/stm32f429i_gpio_driver.cyclo ./Src/stm32f429i_gpio_driver.d ./Src/stm32f429i_gpio_driver.o ./Src/stm32f429i_gpio_driver.su ./Src/syscall.cyclo ./Src/syscall.d ./Src/syscall.o ./Src/syscall.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+	-$(RM) ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/stm32f429i_gpio_driver.cyclo ./Src/stm32f429i_gpio_driver.d ./Src/stm32f429i_gpio_driver.o ./Src/stm32f429i_gpio_driver.su ./Src/stm32f429i_timer_driver.cyclo ./Src/stm32f429i_timer_driver.d ./Src/stm32f429i_timer_driver.o ./Src/stm32f429i_timer_driver.su ./Src/syscall.cyclo ./Src/syscall.d ./Src/syscall.o ./Src/syscall.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
 
 .PHONY: clean-Src
 

@@ -1,10 +1,6 @@
 # ninja log v5
-2	69	1743930047001620500	CMakeFiles/morse-code-converter.dir/Src/sysmem.c.obj	502b5d4c43a95bf0
-86	118	1743934779878450500	morse-code-converter.elf	6f7fefbefe2b5c39
-3	86	1743934779850577700	CMakeFiles/morse-code-converter.dir/Src/main.c.obj	61edf2f36c62d262
-3	41	1743930046973845200	CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj	b655d14551b39d91
-2	106	1743930047038312600	CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj	d4353a10774a4567
-4	108	1743998287549495500	CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj	b655d14551b39d91
-2	165	1743998287605560600	CMakeFiles/morse-code-converter.dir/Src/main.c.obj	61edf2f36c62d262
 4	165	1743998287606310600	CMakeFiles/morse-code-converter.dir/Src/sysmem.c.obj	502b5d4c43a95bf0
+86	118	1743934779878450500	morse-code-converter.elf	6f7fefbefe2b5c39
+2	165	1743998287605560600	CMakeFiles/morse-code-converter.dir/Src/main.c.obj	61edf2f36c62d262
+4	108	1743998287549495500	CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj	b655d14551b39d91
 3	282	1743998287721601600	CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj	d4353a10774a4567

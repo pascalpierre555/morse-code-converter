@@ -1,5 +1,6 @@
 "./Src/main.o"
 "./Src/stm32f429i_gpio_driver.o"
+"./Src/stm32f429i_timer_driver.o"
 "./Src/syscall.o"
 "./Src/sysmem.o"
 "./Startup/startup_stm32f429zitx.o"
