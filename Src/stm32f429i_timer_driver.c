@@ -41,7 +41,8 @@ void TIM_SetupChannel(TIM_Handle_t *pTIMHandle, uint32_t channel) {
     pTIMHandle->pTIMx->CCMR[temp1] &= ~(0x03 << (4 * temp2)); // Clear the bits
     pTIMHandle->pTIMx->CCMR[temp1] |= (pTIMHandle->config.channelConfig[channel].ccm << temp2); // Set Capture/Compare mode
     pTIMHandle->pTIMx->CCER &= ~(0x06 << (4 * channel)); // Clear the CCxP bits
-    pTIMHandle->pTIMx->CCER |= (pTIMHandle->config.channelConfig[channel].ic_mode << (4 * channel)); // Set Input Capture mode
+    uint32_t tmp = (pTIMHandle->config.channelConfig[channel].ic_mode);
+    pTIMHandle->pTIMx->CCER |= (pTIMHandle->config.channelConfig[channel].ic_mode); // Set Input Capture mode
     pTIMHandle->pTIMx->CCER |= (1 << (4 * channel)); // Enable the channel
 }
 

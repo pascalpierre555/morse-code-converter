@@ -25,7 +25,7 @@
 //input capture modes
 #define TIM_IC_MODE_RISING_EDGE   (0x00 << 1)
 #define TIM_IC_MODE_FALLING_EDGE  (0x01 << 1)
-#define TIM_IC_MODE_RF            (0x03 << 1) // Rising and falling edge
+#define TIM_IC_MODE_RF            (0x05 << 1) // Rising and falling edge
 
 //timer status register flags
 #define TIM_FLAG_UIF       (1 << 0) // Update interrupt flag
