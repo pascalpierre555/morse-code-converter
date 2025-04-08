@@ -3,4 +3,7 @@
 ../Src/stm32f429i_timer_driver.c:25:6:TIM_SetPrescaler	16	static
 ../Src/stm32f429i_timer_driver.c:29:6:TIM_Start	16	static
 ../Src/stm32f429i_timer_driver.c:33:6:TIM_Stop	16	static
-../Src/stm32f429i_timer_driver.c:36:6:TIM_SetupChannel	24	static
+../Src/stm32f429i_timer_driver.c:37:6:TIM_SetupChannel	24	static
+../Src/stm32f429i_timer_driver.c:48:10:TIM_GetCCRValue	16	static
+../Src/stm32f429i_timer_driver.c:62:6:TIM_EnableInterrupt	16	static
+../Src/stm32f429i_timer_driver.c:66:6:TIM_DisableInterrupt	16	static

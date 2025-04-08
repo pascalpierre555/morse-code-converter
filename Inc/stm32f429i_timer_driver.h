@@ -23,11 +23,12 @@
 #define TIM_CC_SELECTION_INPUT_TRC      3
 
 //input capture modes
-#define TIM_IC_MODE_RISING_EDGE   0
-#define TIM_IC_MODE_FALLING_EDGE  1
-#define TIM_IC_MODE_RF            3
+#define TIM_IC_MODE_RISING_EDGE   (0x00 << 1)
+#define TIM_IC_MODE_FALLING_EDGE  (0x01 << 1)
+#define TIM_IC_MODE_RF            (0x03 << 1) // Rising and falling edge
 
 //timer status register flags
+#define TIM_FLAG_UIF       (1 << 0) // Update interrupt flag
 #define TIM_FLAG_CC1IF   (1 << 1) // Capture/Compare 1 interrupt flag
 #define TIM_FLAG_CC2IF   (1 << 2) // Capture/Compare 2 interrupt flag
 #define TIM_FLAG_CC3IF   (1 << 3) // Capture/Compare 3 interrupt flag
@@ -72,10 +73,13 @@ typedef struct {
 } TIM_Handle_t;
 
 void TIM_Init(TIM_Handle_t *pTIMHandle);
+void TIM_DeInit(TIM_Handle_t *pTIMHandle);
 void TIM_Start(TIM_Handle_t *pTIMHandle);
 void TIM_Stop(TIM_Handle_t *pTIMHandle);
 void TIM_SetPrescaler(TIM_Handle_t *pTIMHandle, uint32_t prescaler);
-void TIM_SetupChannel(TIM_Handle_t *pTIMHandle, uint32_t channel)
-void TIM_GetFlagStatus(TIM_RegDef_t *pTIMx, uint32_t flag)
+void TIM_SetupChannel(TIM_Handle_t *pTIMHandle, uint32_t channel);
+uint32_t TIM_GetCCRValue(TIM_Handle_t *pTIMHandle, uint32_t channel);
+void TIM_EnableInterrupt(TIM_Handle_t *pTIMHandle, uint32_t channel);
+void TIM_DisableInterrupt(TIM_Handle_t *pTIMHandle, uint32_t channel);
 
 #endif /* STM32F429I_TIMER_DRIVER_H_ */

@@ -88,6 +88,24 @@ typedef struct {
 #define GPIO_PUPD_UP        (0x01)
 #define GPIO_PUPD_DOWN      (0x02)
 
+//GPIO 引腳定義
+#define GPIO_PIN_0         (0x0000)
+#define GPIO_PIN_1         (0x0001)
+#define GPIO_PIN_2         (0x0002)
+#define GPIO_PIN_3         (0x0003)
+#define GPIO_PIN_4         (0x0004)
+#define GPIO_PIN_5         (0x0005)	
+#define GPIO_PIN_6         (0x0006)
+#define GPIO_PIN_7         (0x0007)
+#define GPIO_PIN_8         (0x0008)
+#define GPIO_PIN_9         (0x0009)
+#define GPIO_PIN_10        (0x000A)
+#define GPIO_PIN_11        (0x000B)
+#define GPIO_PIN_12        (0x000C)
+#define GPIO_PIN_13        (0x000D)
+#define GPIO_PIN_14        (0x000E)
+#define GPIO_PIN_15        (0x000F)
+
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);

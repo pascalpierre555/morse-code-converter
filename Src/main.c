@@ -25,80 +25,88 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-void GPIO_InitConfig(void) {
+uint32_t start_time[2] = {0}; // Variable to store the press time
+uint32_t end_time[2] = {0}; // Variable to store the release time
+uint32_t press_duration = 0; // Variable to store the duration of the button press
+
+void GPIO_InitConfig(GPIO_Handle_t *GpioBtn, GPIO_Handle_t *GpioLED1, GPIO_Handle_t *GpioLED2) {
     // Initialize GPIOA as alternate function mode for TIM2_CH1
-	GPIO_Handle_t GpioBtn;
-	GpioBtn.port = GPIOA;
-	GpioBtn.config.pin = 0;
-	GpioBtn.config.mode = GPIO_MODE_AF; // Falling edge trigger
-	GpioBtn.config.otype = GPIO_OTYPE_PP; // Push-pull
-	GpioBtn.config.ospeed = GPIO_OSPEED_LOW; // Fast speed
-	GpioBtn.config.pupd = GPIO_PUPD_UP; // Pull-up
-	GpioBtn.config.af = 1; // Alternate function 1 (AF1)
-	GPIO_Init(&GpioBtn);
+	GpioBtn->port = GPIOA;
+	GpioBtn->config.pin = 0;
+	GpioBtn->config.mode = GPIO_MODE_AF; // Falling edge trigger
+	GpioBtn->config.otype = GPIO_OTYPE_PP; // Push-pull
+	GpioBtn->config.ospeed = GPIO_OSPEED_LOW; // Fast speed
+	GpioBtn->config.pupd = GPIO_PUPD_UP; // Pull-up
+	GpioBtn->config.af = 1; // Alternate function 1 (AF1)
+	GPIO_Init(GpioBtn);
 
     // 初始化 GPIO2 和 GPIO3 為輸出模式
-    GPIO_Handle_t gpio2, gpio3;
-    gpio2.port = GPIOA;
-    gpio2.config.pin = 2; // GPIO2
-    gpio2.config.mode = GPIO_MODE_OUTPUT;
-    gpio2.config.otype = GPIO_OTYPE_PP;
-    gpio2.config.ospeed = GPIO_OSPEED_LOW;
-    gpio2.config.pupd = GPIO_PUPD_NONE;
-    GPIO_Init(&gpio2);
+    GpioLED1->port = GPIOA;
+    GpioLED1->config.pin = 2; // GPIO2
+    GpioLED1->config.mode = GPIO_MODE_OUTPUT;
+    GpioLED1->config.otype = GPIO_OTYPE_PP;
+    GpioLED1->config.ospeed = GPIO_OSPEED_LOW;
+	GpioLED1->config.pupd = GPIO_PUPD_DOWN;
+    GPIO_Init(GpioLED1);
 
-    gpio3.port = GPIOA;
-    gpio3.config.pin = 3; // GPIO3
-    gpio3.config.mode = GPIO_MODE_OUTPUT;
-    gpio3.config.otype = GPIO_OTYPE_PP;
-    gpio3.config.ospeed = GPIO_OSPEED_LOW;
-    gpio3.config.pupd = GPIO_PUPD_NONE;
-    GPIO_Init(&gpio3);
-
-    // 配置 EXTI 中斷
-    GPIO_IRQPriorityConfig(IRQ_NO_EXTI1, 15); // 設置優先級
-    GPIO_IRQConfig(IRQ_NO_EXTI1, ENABLE);    // 啟用中斷
+    GpioLED2->port = GPIOA;
+    GpioLED2->config.pin = 3; // GPIO3
+    GpioLED2->config.mode = GPIO_MODE_OUTPUT;
+    GpioLED2->config.otype = GPIO_OTYPE_PP;
+    GpioLED2->config.ospeed = GPIO_OSPEED_LOW;
+    GpioLED2->config.pupd = GPIO_PUPD_DOWN;
+    GPIO_Init(GpioLED2);
 }
 
 // TIM2 configuration
-void TIM2_Config(void) {
-	TIM_Handle_t timerHandle;
-	timerHandle.pTIMx = TIM2;
-	timerHandle.config.prescaler = 16000 - 1; // Prescaler value
-	timerHandle.config.period = 0xFFFF; // Auto-reload value
-	timerHandle.config.mode = 0; // Timer mode (up)
-	timerHandle.config.channelConfig[0].ccm = TIM_CC_SELECTION_INPUT_DEFAULT; // 默認輸入捕捉
-	timerHandle.config.channelConfig[0].ic_mode = TIM_IC_MODE_RISING_EDGE; // 捕捉上升沿
+void TIM2_Config(TIM_Handle_t *timerHandle) {
+	timerHandle->pTIMx = TIM2;
+	timerHandle->config.prescaler = 16000; // Prescaler value
+	timerHandle->config.period = 0xFFFF; // Auto-reload value
+	timerHandle->config.mode = 0; // Timer mode (up)
+	timerHandle->config.channelConfig[0].ccm = TIM_CC_SELECTION_INPUT_DEFAULT; // 默認輸入捕捉
+	timerHandle->config.channelConfig[0].ic_mode = TIM_IC_MODE_FALLING_EDGE; // 捕捉上升沿
+	TIM_Init(timerHandle); // Initialize TIM2
+	TIM_SetupChannel(timerHandle, TIM_CC1); // Setup channel 0
+	TIM_EnableInterrupt(timerHandle, TIM_CC1); // Enable interrupt for channel 0
+	TIM_Start(timerHandle); // Start the timer
+	GPIO_IRQPriorityConfig(IRQ_NO_TIM2, NVIC_IRQ_PRI0); // Set TIM2 interrupt priority
+	GPIO_IRQConfig(IRQ_NO_TIM2, ENABLE); // Enable TIM2 interrupt in NVIC
 }
 
 void TIM2_IRQHandler(void) {
-    if (TIM_GetFlagStatus(TIM2, TIM_FLAG_CC1)) {
-        TIM_ClearFlag(TIM2, TIM_FLAG_CC1); // 清除捕捉標誌
-
-        uint32_t capturedValue = TIM2->CCR[0]; // 獲取捕捉值
-        // 在這裡處理捕捉到的值，例如計算信號持續時間
+	static uint32_t overflow_count = 0; // Overflow count
+    if (TIM2->SR & TIM_FLAG_CC1IF) {
+        // Clear the interrupt flag
+        TIM2->SR &= ~TIM_FLAG_CC1IF;
+		if (TIM2->CCER & TIM_IC_MODE_FALLING_EDGE) {
+			start_time[0] = TIM_GetCCRValue(TIM2, 0); // Read the captured value
+			start_time[1] = overflow_count; // Store the overflow count
+			TIM2->CCER &= ~(0x06 << 0); // Disable falling edge trigger
+			TIM2->CCER |= (TIM_IC_MODE_RISING_EDGE << 0); // Enable rising edge trigger
+		}
+		else if (TIM2->CCER & TIM_IC_MODE_RISING_EDGE) {
+			end_time[0] = TIM_GetCCRValue(TIM2, 0); // Read the captured value
+			end_time[1] = overflow_count; // Store the overflow count
+			press_duration = (end_time[0] + (end_time[1] * 0xFFFF)) - (start_time[0] + (start_time[1] * 0xFFFF)); // Calculate the duration
+			TIM2->CCER &= ~(0x06 << 0); // Disable rising edge trigger
+			TIM2->CCER |= (TIM_IC_MODE_FALLING_EDGE << 0); // Enable falling edge trigger
+		}
     }
+	else if (TIM2->SR & TIM_FLAG_UIF) {
+		// Clear the update interrupt flag
+		TIM2->SR &= ~TIM_FLAG_UIF;
+		overflow_count++;
+	}
 }
 
 int main(void) {
 	// TIMER and GPIO handle;
-	TIM_Handle_t TimHandle;
-	GPIO_Handle_t GpioBtn;
+	TIM_Handle_t Tim2;
+	GPIO_Handle_t GPIOBtn, GPIOLED1, GPIOLED2;
 
-	volatile uint32_t press_time; 
-
-	GpioBtn.port = GPIOA;
-	GpioBtn.config.pin = 0;
-	GpioBtn.config.mode = GPIO_MODE_AF; // Falling edge trigger
-	GpioBtn.config.otype = GPIO_OTYPE_PP; // Push-pull
-	GpioBtn.config.ospeed = GPIO_OSPEED_LOW; // Fast speed
-	GpioBtn.config.pupd = GPIO_PUPD_UP; // Pull-up
-	GpioBtn.config.af = 1; // Alternate function 1 (AF1)
-	GPIO_Init(&GpioBtn);
-
-	GPIO_IRQPriorityConfig(IRQ_NO_EXTI4, 15); // Set priority to lowest
-	GPIO_IRQConfig(IRQ_NO_EXTI4, ENABLE); // Enable EXTI line 4 interrupt
-
+	GPIO_InitConfig(&GPIOBtn, &GPIOLED1, &GPIOLED2); // Initialize GPIO configuration
+	TIM2_Config(&Tim2); // Initialize TIM2 configuration
 	while(1);
 	return 0;
 }

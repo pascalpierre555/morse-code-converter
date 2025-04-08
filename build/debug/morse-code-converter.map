@@ -322,9 +322,13 @@ Discarded input sections
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .text          0x00000000        0x0 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .data          0x00000000        0x0 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .bss           0x00000000        0x0 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .bss.press_duration
+                0x00000000        0x4 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .bss.end_time  0x00000000        0x8 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj
  .group         0x00000000        0xc CMakeFiles/morse-code-converter.dir/Src/syscall.c.obj
@@ -581,7 +585,7 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
                 0x08000000                g_pfnVectors
                 0x080001ac                        . = ALIGN (0x4)
 
-.text           0x080001ac      0x204
+.text           0x080001ac      0x2d4
                 0x080001ac                        . = ALIGN (0x4)
  *(.text)
  .text          0x080001ac       0x40 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
@@ -605,194 +609,200 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
  .text.__register_exitproc
                 0x08000280       0x80 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__atexit.o)
                 0x08000280                __register_exitproc
- .text.main     0x08000300       0x38 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
-                0x08000300                main
- .text.EXTI4_IRQHandler
-                0x08000338        0xa CMakeFiles/morse-code-converter.dir/Src/main.c.obj
-                0x08000338                EXTI4_IRQHandler
- *fill*         0x08000342        0x2 
+ .text.GPIO_InitConfig
+                0x08000300       0x60 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x08000300                GPIO_InitConfig
+ .text.TIM2_Config
+                0x08000360       0x20 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x08000360                TIM2_Config
+ .text.TIM2_IRQHandler
+                0x08000380       0x7c CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x08000380                TIM2_IRQHandler
+ .text.main     0x080003fc       0x16 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x080003fc                main
+ *fill*         0x08000412        0x2 
  .text.Reset_Handler
-                0x08000344       0x50 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
-                0x08000344                Reset_Handler
+                0x08000414       0x50 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+                0x08000414                Reset_Handler
  .text.Default_Handler
-                0x08000394        0x2 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
-                0x08000394                RTC_Alarm_IRQHandler
-                0x08000394                HASH_RNG_IRQHandler
-                0x08000394                EXTI2_IRQHandler
-                0x08000394                TIM8_CC_IRQHandler
-                0x08000394                DebugMon_Handler
-                0x08000394                UART8_IRQHandler
-                0x08000394                SPI4_IRQHandler
-                0x08000394                TIM1_CC_IRQHandler
-                0x08000394                DMA2_Stream5_IRQHandler
-                0x08000394                HardFault_Handler
-                0x08000394                DMA1_Stream5_IRQHandler
-                0x08000394                SysTick_Handler
-                0x08000394                PVD_IRQHandler
-                0x08000394                SDIO_IRQHandler
-                0x08000394                TAMP_STAMP_IRQHandler
-                0x08000394                PendSV_Handler
-                0x08000394                NMI_Handler
-                0x08000394                CAN2_RX1_IRQHandler
-                0x08000394                EXTI3_IRQHandler
-                0x08000394                TIM8_TRG_COM_TIM14_IRQHandler
-                0x08000394                TIM1_UP_TIM10_IRQHandler
-                0x08000394                TIM8_UP_TIM13_IRQHandler
-                0x08000394                I2C3_ER_IRQHandler
-                0x08000394                LCD_TFT_IRQHandler
-                0x08000394                EXTI0_IRQHandler
-                0x08000394                I2C2_EV_IRQHandler
-                0x08000394                DMA1_Stream2_IRQHandler
-                0x08000394                CAN1_RX0_IRQHandler
-                0x08000394                FPU_IRQHandler
-                0x08000394                OTG_HS_WKUP_IRQHandler
-                0x08000394                UsageFault_Handler
-                0x08000394                CAN2_SCE_IRQHandler
-                0x08000394                DMA2_Stream2_IRQHandler
-                0x08000394                SPI1_IRQHandler
-                0x08000394                TIM6_DAC_IRQHandler
-                0x08000394                TIM1_BRK_TIM9_IRQHandler
-                0x08000394                DCMI_IRQHandler
-                0x08000394                CAN2_RX0_IRQHandler
-                0x08000394                DMA2_Stream3_IRQHandler
-                0x08000394                USART6_IRQHandler
-                0x08000394                USART3_IRQHandler
-                0x08000394                CRYP_IRQHandler
-                0x08000394                CAN1_RX1_IRQHandler
-                0x08000394                UART5_IRQHandler
-                0x08000394                DMA2_Stream0_IRQHandler
-                0x08000394                TIM4_IRQHandler
-                0x08000394                I2C1_EV_IRQHandler
-                0x08000394                DMA1_Stream6_IRQHandler
-                0x08000394                DMA1_Stream1_IRQHandler
-                0x08000394                UART4_IRQHandler
-                0x08000394                LCD_TFT_1_IRQHandler
-                0x08000394                TIM3_IRQHandler
-                0x08000394                RCC_IRQHandler
-                0x08000394                TIM8_BRK_TIM12_IRQHandler
-                0x08000394                Default_Handler
-                0x08000394                EXTI15_10_IRQHandler
-                0x08000394                ADC_IRQHandler
-                0x08000394                DMA1_Stream7_IRQHandler
-                0x08000394                SPI5_IRQHandler
-                0x08000394                TIM7_IRQHandler
-                0x08000394                CAN2_TX_IRQHandler
-                0x08000394                TIM5_IRQHandler
-                0x08000394                DMA2_Stream7_IRQHandler
-                0x08000394                I2C3_EV_IRQHandler
-                0x08000394                EXTI9_5_IRQHandler
-                0x08000394                RTC_WKUP_IRQHandler
-                0x08000394                ETH_WKUP_IRQHandler
-                0x08000394                SPI2_IRQHandler
-                0x08000394                OTG_HS_EP1_IN_IRQHandler
-                0x08000394                MemManage_Handler
-                0x08000394                DMA1_Stream0_IRQHandler
-                0x08000394                CAN1_TX_IRQHandler
-                0x08000394                SVC_Handler
-                0x08000394                ETH_IRQHandler
-                0x08000394                OTG_HS_EP1_OUT_IRQHandler
-                0x08000394                WWDG_IRQHandler
-                0x08000394                SPI6_IRQHandler
-                0x08000394                TIM2_IRQHandler
-                0x08000394                OTG_FS_WKUP_IRQHandler
-                0x08000394                TIM1_TRG_COM_TIM11_IRQHandler
-                0x08000394                OTG_HS_IRQHandler
-                0x08000394                DMA2D_IRQHandler
-                0x08000394                EXTI1_IRQHandler
-                0x08000394                UART7_IRQHandler
-                0x08000394                USART2_IRQHandler
-                0x08000394                I2C2_ER_IRQHandler
-                0x08000394                DMA2_Stream1_IRQHandler
-                0x08000394                CAN1_SCE_IRQHandler
-                0x08000394                FLASH_IRQHandler
-                0x08000394                DMA2_Stream4_IRQHandler
-                0x08000394                BusFault_Handler
-                0x08000394                USART1_IRQHandler
-                0x08000394                OTG_FS_IRQHandler
-                0x08000394                SPI3_IRQHandler
-                0x08000394                DMA1_Stream4_IRQHandler
-                0x08000394                I2C1_ER_IRQHandler
-                0x08000394                FMC_IRQHandler
-                0x08000394                DMA2_Stream6_IRQHandler
-                0x08000394                SAI1_IRQHandler
-                0x08000394                DMA1_Stream3_IRQHandler
+                0x08000464        0x2 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+                0x08000464                RTC_Alarm_IRQHandler
+                0x08000464                HASH_RNG_IRQHandler
+                0x08000464                EXTI2_IRQHandler
+                0x08000464                TIM8_CC_IRQHandler
+                0x08000464                DebugMon_Handler
+                0x08000464                UART8_IRQHandler
+                0x08000464                SPI4_IRQHandler
+                0x08000464                TIM1_CC_IRQHandler
+                0x08000464                DMA2_Stream5_IRQHandler
+                0x08000464                HardFault_Handler
+                0x08000464                DMA1_Stream5_IRQHandler
+                0x08000464                SysTick_Handler
+                0x08000464                PVD_IRQHandler
+                0x08000464                SDIO_IRQHandler
+                0x08000464                TAMP_STAMP_IRQHandler
+                0x08000464                PendSV_Handler
+                0x08000464                NMI_Handler
+                0x08000464                CAN2_RX1_IRQHandler
+                0x08000464                EXTI3_IRQHandler
+                0x08000464                TIM8_TRG_COM_TIM14_IRQHandler
+                0x08000464                TIM1_UP_TIM10_IRQHandler
+                0x08000464                TIM8_UP_TIM13_IRQHandler
+                0x08000464                I2C3_ER_IRQHandler
+                0x08000464                LCD_TFT_IRQHandler
+                0x08000464                EXTI0_IRQHandler
+                0x08000464                I2C2_EV_IRQHandler
+                0x08000464                DMA1_Stream2_IRQHandler
+                0x08000464                CAN1_RX0_IRQHandler
+                0x08000464                FPU_IRQHandler
+                0x08000464                OTG_HS_WKUP_IRQHandler
+                0x08000464                UsageFault_Handler
+                0x08000464                CAN2_SCE_IRQHandler
+                0x08000464                DMA2_Stream2_IRQHandler
+                0x08000464                SPI1_IRQHandler
+                0x08000464                TIM6_DAC_IRQHandler
+                0x08000464                TIM1_BRK_TIM9_IRQHandler
+                0x08000464                DCMI_IRQHandler
+                0x08000464                CAN2_RX0_IRQHandler
+                0x08000464                DMA2_Stream3_IRQHandler
+                0x08000464                USART6_IRQHandler
+                0x08000464                USART3_IRQHandler
+                0x08000464                CRYP_IRQHandler
+                0x08000464                CAN1_RX1_IRQHandler
+                0x08000464                UART5_IRQHandler
+                0x08000464                DMA2_Stream0_IRQHandler
+                0x08000464                TIM4_IRQHandler
+                0x08000464                I2C1_EV_IRQHandler
+                0x08000464                DMA1_Stream6_IRQHandler
+                0x08000464                DMA1_Stream1_IRQHandler
+                0x08000464                UART4_IRQHandler
+                0x08000464                LCD_TFT_1_IRQHandler
+                0x08000464                TIM3_IRQHandler
+                0x08000464                RCC_IRQHandler
+                0x08000464                TIM8_BRK_TIM12_IRQHandler
+                0x08000464                Default_Handler
+                0x08000464                EXTI15_10_IRQHandler
+                0x08000464                ADC_IRQHandler
+                0x08000464                DMA1_Stream7_IRQHandler
+                0x08000464                SPI5_IRQHandler
+                0x08000464                TIM7_IRQHandler
+                0x08000464                CAN2_TX_IRQHandler
+                0x08000464                TIM5_IRQHandler
+                0x08000464                DMA2_Stream7_IRQHandler
+                0x08000464                I2C3_EV_IRQHandler
+                0x08000464                EXTI9_5_IRQHandler
+                0x08000464                RTC_WKUP_IRQHandler
+                0x08000464                ETH_WKUP_IRQHandler
+                0x08000464                SPI2_IRQHandler
+                0x08000464                OTG_HS_EP1_IN_IRQHandler
+                0x08000464                MemManage_Handler
+                0x08000464                DMA1_Stream0_IRQHandler
+                0x08000464                CAN1_TX_IRQHandler
+                0x08000464                SVC_Handler
+                0x08000464                EXTI4_IRQHandler
+                0x08000464                ETH_IRQHandler
+                0x08000464                OTG_HS_EP1_OUT_IRQHandler
+                0x08000464                WWDG_IRQHandler
+                0x08000464                SPI6_IRQHandler
+                0x08000464                OTG_FS_WKUP_IRQHandler
+                0x08000464                TIM1_TRG_COM_TIM11_IRQHandler
+                0x08000464                OTG_HS_IRQHandler
+                0x08000464                DMA2D_IRQHandler
+                0x08000464                EXTI1_IRQHandler
+                0x08000464                UART7_IRQHandler
+                0x08000464                USART2_IRQHandler
+                0x08000464                I2C2_ER_IRQHandler
+                0x08000464                DMA2_Stream1_IRQHandler
+                0x08000464                CAN1_SCE_IRQHandler
+                0x08000464                FLASH_IRQHandler
+                0x08000464                DMA2_Stream4_IRQHandler
+                0x08000464                BusFault_Handler
+                0x08000464                USART1_IRQHandler
+                0x08000464                OTG_FS_IRQHandler
+                0x08000464                SPI3_IRQHandler
+                0x08000464                DMA1_Stream4_IRQHandler
+                0x08000464                I2C1_ER_IRQHandler
+                0x08000464                FMC_IRQHandler
+                0x08000464                DMA2_Stream6_IRQHandler
+                0x08000464                SAI1_IRQHandler
+                0x08000464                DMA1_Stream3_IRQHandler
  *(.glue_7)
- .glue_7        0x08000396        0x0 linker stubs
+ .glue_7        0x08000466        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08000396        0x0 linker stubs
+ .glue_7t       0x08000466        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x08000396        0x2 
- .eh_frame      0x08000398        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ *fill*         0x08000466        0x2 
+ .eh_frame      0x08000468        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.init)
- .init          0x08000398        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x08000398                _init
- .init          0x0800039c        0x8 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtn.o
+ .init          0x08000468        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x08000468                _init
+ .init          0x0800046c        0x8 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtn.o
  *(.fini)
- .fini          0x080003a4        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x080003a4                _fini
- .fini          0x080003a8        0x8 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtn.o
-                0x080003b0                        . = ALIGN (0x4)
-                0x080003b0                        _etext = .
+ .fini          0x08000474        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x08000474                _fini
+ .fini          0x08000478        0x8 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtn.o
+                0x08000480                        . = ALIGN (0x4)
+                0x08000480                        _etext = .
 
-.vfp11_veneer   0x080003b0        0x0
- .vfp11_veneer  0x080003b0        0x0 linker stubs
+.vfp11_veneer   0x08000480        0x0
+ .vfp11_veneer  0x08000480        0x0 linker stubs
 
-.v4_bx          0x080003b0        0x0
- .v4_bx         0x080003b0        0x0 linker stubs
+.v4_bx          0x08000480        0x0
+ .v4_bx         0x08000480        0x0 linker stubs
 
-.iplt           0x080003b0        0x0
- .iplt          0x080003b0        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.iplt           0x08000480        0x0
+ .iplt          0x08000480        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x080003b0        0x0
-                0x080003b0                        . = ALIGN (0x4)
+.rodata         0x08000480        0x0
+                0x08000480                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
-                0x080003b0                        . = ALIGN (0x4)
+                0x08000480                        . = ALIGN (0x4)
 
-.ARM.extab      0x080003b0        0x0
-                0x080003b0                        . = ALIGN (0x4)
+.ARM.extab      0x08000480        0x0
+                0x08000480                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080003b0                        . = ALIGN (0x4)
+                0x08000480                        . = ALIGN (0x4)
 
-.ARM            0x080003b0        0x0
-                0x080003b0                        . = ALIGN (0x4)
-                0x080003b0                        __exidx_start = .
+.ARM            0x08000480        0x0
+                0x08000480                        . = ALIGN (0x4)
+                0x08000480                        __exidx_start = .
  *(.ARM.exidx*)
-                0x080003b0                        __exidx_end = .
-                0x080003b0                        . = ALIGN (0x4)
+                0x08000480                        __exidx_end = .
+                0x08000480                        . = ALIGN (0x4)
 
-.preinit_array  0x080003b0        0x0
-                0x080003b0                        . = ALIGN (0x4)
-                0x080003b0                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x08000480        0x0
+                0x08000480                        . = ALIGN (0x4)
+                0x08000480                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080003b0                        PROVIDE (__preinit_array_end = .)
-                0x080003b0                        . = ALIGN (0x4)
+                0x08000480                        PROVIDE (__preinit_array_end = .)
+                0x08000480                        . = ALIGN (0x4)
 
-.init_array     0x080003b0        0x8
-                0x080003b0                        . = ALIGN (0x4)
-                0x080003b0                        PROVIDE (__init_array_start = .)
+.init_array     0x08000480        0x8
+                0x08000480                        . = ALIGN (0x4)
+                0x08000480                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x080003b0        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__call_atexit.o)
+                0x08000480        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x080003b4        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080003b8                        PROVIDE (__init_array_end = .)
-                0x080003b8                        . = ALIGN (0x4)
+ .init_array    0x08000484        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x08000488                        PROVIDE (__init_array_end = .)
+                0x08000488                        . = ALIGN (0x4)
 
-.fini_array     0x080003b8        0x4
-                0x080003b8                        . = ALIGN (0x4)
-                0x080003b8                        PROVIDE (__fini_array_start = .)
+.fini_array     0x08000488        0x4
+                0x08000488                        . = ALIGN (0x4)
+                0x08000488                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080003b8        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080003bc                        PROVIDE (__fini_array_end = .)
-                0x080003bc                        . = ALIGN (0x4)
-                0x080003bc                        _sidata = LOADADDR (.data)
+ .fini_array    0x08000488        0x4 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x0800048c                        PROVIDE (__fini_array_end = .)
+                0x0800048c                        . = ALIGN (0x4)
+                0x0800048c                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x080003bc        0x0
- .rel.iplt      0x080003bc        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x0800048c        0x0
+ .rel.iplt      0x0800048c        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.data           0x20000000        0x4 load address 0x080003bc
+.data           0x20000000        0x4 load address 0x0800048c
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -804,12 +814,12 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
  *(.RamFunc*)
                 0x20000004                        . = ALIGN (0x4)
                 0x20000004                        _edata = .
-                0x080003c0                        _siccmram = LOADADDR (.ccmram)
+                0x08000490                        _siccmram = LOADADDR (.ccmram)
 
-.igot.plt       0x20000004        0x0 load address 0x080003c0
+.igot.plt       0x20000004        0x0 load address 0x08000490
  .igot.plt      0x20000004        0x0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.ccmram         0x10000000        0x0 load address 0x080003c0
+.ccmram         0x10000000        0x0 load address 0x08000490
                 0x10000000                        . = ALIGN (0x4)
                 0x10000000                        _sccmram = .
  *(.ccmram)
@@ -818,7 +828,7 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
                 0x10000000                        _eccmram = .
                 0x10000000                        . = ALIGN (0x4)
 
-.bss            0x20000004      0x1b4
+.bss            0x20000004      0x1c0
                 0x20000004                        _sbss = .
                 0x20000004                        __bss_start__ = _sbss
  *(.bss)
@@ -833,21 +843,27 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
  .bss.__atexit0
                 0x20000028      0x190 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__atexit.o)
                 0x20000028                __atexit0
+ .bss.overflow_count.0
+                0x200001b8        0x4 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .bss.start_time
+                0x200001bc        0x8 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x200001bc                start_time
  *(COMMON)
-                0x200001b8                        . = ALIGN (0x4)
-                0x200001b8                        _ebss = .
-                0x200001b8                        __bss_end__ = _ebss
+                0x200001c4                        . = ALIGN (0x4)
+                0x200001c4                        _ebss = .
+                0x200001c4                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x200001b8      0x600
-                0x200001b8                        . = ALIGN (0x8)
+                0x200001c4      0x604
+                0x200001c8                        . = ALIGN (0x8)
+ *fill*         0x200001c4        0x4 
                 [!provide]                        PROVIDE (end = .)
-                0x200001b8                        PROVIDE (_end = .)
-                0x200003b8                        . = (. + _Min_Heap_Size)
- *fill*         0x200001b8      0x200 
-                0x200007b8                        . = (. + _Min_Stack_Size)
- *fill*         0x200003b8      0x400 
-                0x200007b8                        . = ALIGN (0x8)
+                0x200001c8                        PROVIDE (_end = .)
+                0x200003c8                        . = (. + _Min_Heap_Size)
+ *fill*         0x200001c8      0x200 
+                0x200007c8                        . = (. + _Min_Stack_Size)
+ *fill*         0x200003c8      0x400 
+                0x200007c8                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -885,56 +901,62 @@ LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-no
 LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libm.a
 LOAD /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+fp/hard/libgcc.a
 
-.debug_frame    0x00000000      0x200
+.debug_frame    0x00000000      0x238
  .debug_frame   0x00000000       0x2c /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-init.o)
  .debug_frame   0x0000002c       0xb0 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-lock.o)
  .debug_frame   0x000000dc       0x58 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__call_atexit.o)
  .debug_frame   0x00000134       0x20 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-atexit.o)
  .debug_frame   0x00000154       0x38 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-fini.o)
  .debug_frame   0x0000018c       0x34 /home/peng/st/stm32cubeclt_1.18.0/GNU-tools-for-STM32/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libc.a(libc_a-__atexit.o)
- .debug_frame   0x000001c0       0x40 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_frame   0x000001c0       0x78 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
 
-.debug_info     0x00000000      0x2d3
- .debug_info    0x00000000      0x2a3 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_info    0x000002a3       0x30 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+.debug_info     0x00000000      0x5b8
+ .debug_info    0x00000000      0x588 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_info    0x00000588       0x30 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
-.debug_abbrev   0x00000000      0x139
- .debug_abbrev  0x00000000      0x115 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_abbrev  0x00000115       0x24 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+.debug_abbrev   0x00000000      0x1cd
+ .debug_abbrev  0x00000000      0x1a9 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_abbrev  0x000001a9       0x24 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
-.debug_aranges  0x00000000       0x50
+.debug_loclists
+                0x00000000       0x63
+ .debug_loclists
+                0x00000000       0x63 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+
+.debug_aranges  0x00000000       0x60
  .debug_aranges
-                0x00000000       0x28 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x00000000       0x38 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .debug_aranges
-                0x00000028       0x28 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+                0x00000038       0x28 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
 .debug_rnglists
-                0x00000000       0x32
+                0x00000000       0x3e
  .debug_rnglists
-                0x00000000       0x19 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                0x00000000       0x25 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
  .debug_rnglists
-                0x00000019       0x19 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+                0x00000025       0x19 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
-.debug_macro    0x00000000     0x1312
- .debug_macro   0x00000000       0x75 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000075      0xacc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000b41       0x22 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000b63       0x8e CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000bf1       0x51 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000c42      0x103 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000d45       0x6a CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000daf      0x1df CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00000f8e      0x2d2 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_macro   0x00001260       0xb2 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+.debug_macro    0x00000000     0x13e6
+ .debug_macro   0x00000000       0x7e CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x0000007e      0xacc CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000b4a       0x22 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000b6c       0x8e CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000bfa       0x51 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000c4b      0x103 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000d4e       0x6a CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000db8      0x1df CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x00000f97      0x2d3 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x0000126a      0x112 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_macro   0x0000137c       0x6a CMakeFiles/morse-code-converter.dir/Src/main.c.obj
 
-.debug_line     0x00000000      0x326
- .debug_line    0x00000000      0x2ab CMakeFiles/morse-code-converter.dir/Src/main.c.obj
- .debug_line    0x000002ab       0x7b CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+.debug_line     0x00000000      0x49b
+ .debug_line    0x00000000      0x420 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+ .debug_line    0x00000420       0x7b CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
-.debug_str      0x00000000     0x5098
- .debug_str     0x00000000     0x5098 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
-                               0x51bc (size before relaxing)
- .debug_str     0x00005098       0x80 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
+.debug_str      0x00000000     0x549e
+ .debug_str     0x00000000     0x549e CMakeFiles/morse-code-converter.dir/Src/main.c.obj
+                               0x55bf (size before relaxing)
+ .debug_str     0x0000549e       0x80 CMakeFiles/morse-code-converter.dir/Startup/startup_stm32f429zitx.s.obj
 
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 CMakeFiles/morse-code-converter.dir/Src/main.c.obj
