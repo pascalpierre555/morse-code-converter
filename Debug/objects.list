@@ -1,5 +1,7 @@
 "./Src/main.o"
+"./Src/morse.o"
 "./Src/stm32f429i_gpio_driver.o"
+"./Src/stm32f429i_i2c_driver.o"
 "./Src/stm32f429i_timer_driver.o"
 "./Src/syscall.o"
 "./Src/sysmem.o"

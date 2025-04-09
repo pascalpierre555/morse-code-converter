@@ -2,6 +2,7 @@
     "files.associations": {
         "stm32f429i_gpio_driver.h": "c",
         "stm32f429i.h": "c",
-        "stm32f429i_timer_driver.h": "c"
+        "stm32f429i_timer_driver.h": "c",
+        "stm32f429i_i2c_driver.h": "c"
     }
 }

@@ -1,0 +1,4 @@
+../Src/morse.c:14:18:create_node	1
+../Src/morse.c:23:13:insert	6
+../Src/morse.c:38:6:morse_trie_init	1
+../Src/morse.c:57:6:morse_lookup	8
