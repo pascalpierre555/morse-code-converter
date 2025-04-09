@@ -51,7 +51,7 @@ void GPIO_InitConfig(GPIO_Handle_t *GpioBtn, GPIO_Handle_t *GpioLED1, GPIO_Handl
     GPIO_Init(GpioLED1);
 
     GpioLED2->port = GPIOA;
-    GpioLED2->config.pin = 3; // GPIO3
+    GpioLED2->config.pin = 5; // GPIO3
     GpioLED2->config.mode = GPIO_MODE_OUTPUT;
     GpioLED2->config.otype = GPIO_OTYPE_PP;
     GpioLED2->config.ospeed = GPIO_OSPEED_LOW;
@@ -112,8 +112,12 @@ void Timer3_StartCountdown(uint32_t milliseconds) {
 }
 
 void Timer4_StartCountdown(uint32_t milliseconds) {
+	TIM4->CR[0] &= ~(1 << 0); // 確保 Timer 先停住
+	TIM4->CR[0] |= (1 << 2);
+	TIM4->PSC = 16000 - 1; // 設定 Prescaler
 	TIM4->ARR = milliseconds - 1;
 	TIM4->CNT = 0;
+	TIM4->EGR |= (1 << 0); // 更新計數器
 	TIM4->SR &= ~TIM_FLAG_UIF; // 清除 update flag
 	TIM4->CR[0] |= (1 << 0); // 啟動 Timer
 }
@@ -122,12 +126,14 @@ void Timer3_Stop(void) {
     TIM3->CR[0] &= ~(1 << 0); // 停止計數
     TIM3->CNT = 0;
     TIM3->SR &= ~TIM_FLAG_UIF;   // 清除旗標
+	GPIOA->ODR &= ~(1 << 4); // Reset GPIO2
 }
 
 void Timer4_Stop(void) {
 	TIM4->CR[0] &= ~(1 << 0); // 停止計數
 	TIM4->CNT = 0;
 	TIM4->SR &= ~TIM_FLAG_UIF;   // 清除旗標
+	GPIOA->ODR &= ~(1 << 5); // Reset GPIO2
 }
 
 void TIM2_IRQHandler(void) {
@@ -139,11 +145,15 @@ void TIM2_IRQHandler(void) {
 			end_time[1] = overflow_count; // Store the overflow count
 			press_duration = end_time[0] - start_time[0];
 			Timer3_Stop(); // Stop the countdown
+			Timer3_StartCountdown(600);
+			Timer4_StartCountdown(1200);
 		}
 		else { // Check if the button is released
 			start_time[0] = TIM2->CCR[0]; // Read the captured value
 			start_time[1] = overflow_count; // Store the overflow count
-			Timer3_StartCountdown(1000); //Start 600ms countdown to determine it's a short press or a long press
+			Timer3_Stop();
+			Timer4_Stop();
+			Timer3_StartCountdown(600); //Start 600ms countdown to determine it's a short press or a long press
 		}
 		TIM2->SR &= ~TIM_FLAG_CC1IF;
     }
@@ -170,7 +180,7 @@ void TIM4_IRQHandler(void) {
         TIM4->SR &= ~TIM_FLAG_UIF; // 清中斷旗標
 		TIM4->CR[0] &= ~(1 << 0); // 停止計數
     	TIM4->CNT = 0;
-        GPIOA->ODR |= (1 << 2); // Set GPIO3
+        GPIOA->ODR |= (1 << 5); // Set GPIO3
     }
     return;
 }
