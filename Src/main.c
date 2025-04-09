@@ -129,7 +129,7 @@ void Timer2_Stop(void) {
 	TIM2->CR[0] &= ~(1 << 0); // 停止計數
 	TIM2->CNT = 0;
 	TIM2->SR &= ~TIM_FLAG_UIF;   // 清除旗標
-	GPIOA->ODR &= ~(1 << 0); // Reset GPIO1
+	GPIOA->ODR &= ~(1 << 4); // Reset GPIO1
 }
 
 void Timer3_Stop(void) {
@@ -147,28 +147,42 @@ void Timer4_Stop(void) {
 }
 
 void EXTI0_IRQHandler(void) {
-	static volatile uint32_t overflow_count = 0; // Overflow count
-    if (TIM2->SR & TIM_FLAG_CC1IF) {
-        // Clear the interrupt flag
-		if (GPIOA->IDR & (1 << 0)) { // Check if the button is pressed
-			if (morse_index < 6) {
-				if (TIM3->SR & TIM_FLAG_UIF) {
-					morse_input[morse_index] = '-'; // Store the dash
-				}
-				else {
-					morse_input[morse_index] = '.'; // Store the dot
-				}
-			}
-			Timer3_Stop(); // Stop the countdown
-			Timer3_StartCountdown(600);
-			Timer4_StartCountdown(1200);
-		}
-		else { // Check if the button is released
-			Timer3_Stop();
-			Timer4_Stop();
-			Timer3_StartCountdown(600); //Start 600ms countdown to determine it's a short press or a long press
-		}
-		TIM2->SR &= ~TIM_FLAG_CC1IF;
+	GPIO_IRQHandling(0);
+	 	if (GPIOA->IDR & (1 << 0)) { // Check if the button is pressed
+	 		if (morse_index < 6) {
+	 			if (TIM2->SR & TIM_FLAG_UIF) {
+	 				morse_input[morse_index] = '-'; // Store the dash
+	 				morse_index++;
+	 				TIM2->SR &= ~TIM_FLAG_UIF; // 清中斷旗標
+	 			}
+	 			else {
+	 				morse_input[morse_index] = '.'; // Store the dot
+	 				morse_index++;
+	 			}
+	 		}
+	 		else {
+	 			for (int i = 0; i < 6; i++) {
+	 				morse_input[i] = 0; // Reset the input
+	 			}
+	 			morse_index = 0;
+	 		}
+	 		Timer2_Stop(); // Stop the countdown
+	 		Timer3_StartCountdown(600);
+	 		Timer4_StartCountdown(1200);
+	 	}
+	 	else { // Check if the button is released
+	 		Timer3_Stop();
+	 		Timer4_Stop();
+	 		Timer2_StartCountdown(600); //Start 600ms countdown to determine it's a short press or a long press
+	 	}
+     return;
+}
+
+void TIM2_IRQHandler(void) {
+    if (TIM2->SR & TIM_FLAG_UIF) {
+		TIM2->CR[0] &= ~(1 << 0); // 停止計數
+    	TIM2->CNT = 0;
+        GPIOA->ODR |= (1 << 4); // Set GPIO3
     }
     return;
 }
@@ -195,18 +209,18 @@ void TIM4_IRQHandler(void) {
 
 
 int main(void) {
-	while(1);
-	// // TIMER and GPIO handle;
-	// TIM_Handle_t TimBtn, TimLED1, TimLED2;
-	// GPIO_Handle_t GPIOBtn, GPIOLED1, GPIOLED2;\
-    // I2C1_Init();
-	// GPIO_InitConfig(&GPIOBtn, &GPIOLED1, &GPIOLED2); // Initialize GPIO configuration
-	// GPIO_IRQConfig(IRQ_NO_EXTI0, ENABLE); // Enable EXTI0 interrupt in NVIC
-	// GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI0); // Set EXTI0 interrupt priority
-	// TIM_Config(&TimBtn, &TimLED1, &TimLED2); // Initialize TIM2 configuration
-    // while (1) {
+
+	 // TIMER and GPIO handle;
+	 TIM_Handle_t TimBtn, TimLED1, TimLED2;
+	 GPIO_Handle_t GPIOBtn, GPIOLED1, GPIOLED2;\
+     I2C1_Init();
+	 GPIO_InitConfig(&GPIOBtn, &GPIOLED1, &GPIOLED2); // Initialize GPIO configuration
+	 GPIO_IRQConfig(IRQ_NO_EXTI0, ENABLE); // Enable EXTI0 interrupt in NVIC
+	 GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI0); // Set EXTI0 interrupt priority
+	 TIM_Config(&TimBtn, &TimLED1, &TimLED2); // Initialize TIM2 configuration
+     while (1) {
     //     I2C1_SendByte(0x08, 'G');  // 傳送字母 G 給地址 0x08 的 slave
     //     for (volatile int i = 0; i < 100; ++i);  // delay
-    // }
+     }
 	return 0;
 }
