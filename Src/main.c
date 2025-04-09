@@ -21,6 +21,7 @@
 #include "stm32f429i_gpio_driver.h"
 #include "stm32f429i_timer_driver.h"
 #include "stm32f429i_i2c_driver.h"
+#include "morse.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -193,6 +194,14 @@ void TIM3_IRQHandler(void) {
 		TIM3->CR[0] &= ~(1 << 0); // 停止計數
     	TIM3->CNT = 0;
         GPIOA->ODR |= (1 << 4); // Set GPIO3
+		char inputLetter = morse_lookup(morse_input);
+		if (inputLetter != '?') {
+			I2C1_SendByte(0x08, inputLetter); // Call the lookup function
+		}
+		for (int i = 0; i < 6; i++) {
+			morse_input[i] = 0; // Reset the input
+		}
+		morse_index = 0;
     }
     return;
 }
@@ -203,13 +212,13 @@ void TIM4_IRQHandler(void) {
 		TIM4->CR[0] &= ~(1 << 0); // 停止計數
     	TIM4->CNT = 0;
         GPIOA->ODR |= (1 << 5); // Set GPIO3
+		I2C1_SendByte(0x08, ' '); // Call the lookup function
     }
     return;
 }
 
 
 int main(void) {
-
 	 // TIMER and GPIO handle;
 	 TIM_Handle_t TimBtn, TimLED1, TimLED2;
 	 GPIO_Handle_t GPIOBtn, GPIOLED1, GPIOLED2;\
@@ -218,6 +227,7 @@ int main(void) {
 	 GPIO_IRQConfig(IRQ_NO_EXTI0, ENABLE); // Enable EXTI0 interrupt in NVIC
 	 GPIO_IRQPriorityConfig(IRQ_NO_EXTI0, NVIC_IRQ_PRI0); // Set EXTI0 interrupt priority
 	 TIM_Config(&TimBtn, &TimLED1, &TimLED2); // Initialize TIM2 configuration
+	 morse_trie_init();
      while (1) {
     //     I2C1_SendByte(0x08, 'G');  // 傳送字母 G 給地址 0x08 的 slave
     //     for (volatile int i = 0; i < 100; ++i);  // delay
