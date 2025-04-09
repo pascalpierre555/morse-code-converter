@@ -703,8 +703,8 @@ void EXTI0_IRQHandler(void) {
 	 		Timer3_StartCountdown(600);
  8000644:	f44f 7016 	mov.w	r0, #600	@ 0x258
  8000648:	f7ff fee4 	bl	8000414 <Timer3_StartCountdown>
-	 		Timer4_StartCountdown(1200);
- 800064c:	f44f 6096 	mov.w	r0, #1200	@ 0x4b0
+	 		Timer4_StartCountdown(2500);
+ 800064c:	f640 10c4 	movw	r0, #2500	@ 0x9c4
  8000650:	f7ff ff16 	bl	8000480 <Timer4_StartCountdown>
 	 	else { // Check if the button is released
 	 		Timer3_Stop();

@@ -169,7 +169,7 @@ void EXTI0_IRQHandler(void) {
 	 		}
 	 		Timer2_Stop(); // Stop the countdown
 	 		Timer3_StartCountdown(600);
-	 		Timer4_StartCountdown(1200);
+	 		Timer4_StartCountdown(2500);
 	 	}
 	 	else { // Check if the button is released
 	 		Timer3_Stop();
